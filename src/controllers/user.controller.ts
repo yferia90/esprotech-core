@@ -21,9 +21,7 @@ export const signUp = async (req: Request, res: Response) => {
     try{
         const { body } = req;
         const userId = await registerUser(body);
-        console.log('userId!!!!',userId);
         const token = await getToken(userId);
-        console.log('token!!!!',token);
         ResponseSuccess(res, 201, [], 'User created successfully.', token);
     }catch(err){
         ResponseError(res, 500, 'Internal server error.');

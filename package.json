@@ -1,7 +1,7 @@
 {
-  "name": "api-georef-provincia",
+  "name": "esprotech-core",
   "version": "1.0.0",
-  "description": "Api de geolocalización por provincia",
+  "description": "Api de esprotech",
   "main": "index.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=development ts-node-dev src/app.ts",

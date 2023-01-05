@@ -25,7 +25,7 @@ const insertContact = async (body: ContactInterface) => {
             name: body.name,
             email: body.email,
             celular: body.celular,
-            mensaje: body.mensaje,
+            message: body.message,
         });
         const contactSave = await ContactModel.create(contact);
         return contactSave._id;

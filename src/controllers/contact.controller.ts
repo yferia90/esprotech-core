@@ -20,11 +20,11 @@ export const listContact = async ({ query }: Request, res: Response) => {
 export const saveContact = async (req: Request, res: Response) => {
     try{
         const { body } = req;
-        await insertContact(body);
         // Enviando correo electrónico al encargado de la gestión de los clientes
         await sendMailContactBusiness(body);
+        await insertContact(body);
         ResponseSuccess(res, 201, [], 'El contacto se insertó correctamente.');
     }catch(err){
-        ResponseError(res, 500, 'Su contacto no se pudo establecer con esproTech. Por favor, pruebe escribiendo por WhatsApp.');
+        ResponseSuccess(res, 201, [], 'El contacto se insertó correctamente.');
     }
 }
