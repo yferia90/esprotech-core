@@ -30,7 +30,6 @@ const registerUser = async (body: UserInterface) => {
         const userSave = await UserModel.create(user);
         return userSave._id;
     }catch(err){
-        console.log('ERRROR',err);
         return "Internal server error";
     }
 }

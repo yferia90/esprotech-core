@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
+import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { getUserById } from '../services/user.service';
 import { PayloadInterface } from '../types/user.type';
@@ -16,6 +17,19 @@ const getToken = async (id: string) => {
         expiresIn: 60
     });
     return token;
+}
+
+const validatePassword = (password: string, passwordCompare: string) => {
+    return bcrypt.compare(password, passwordCompare);
+}
+
+// validate token 
+const getUserIdByToken = async (req: Request) => {
+    const token = req.header('Authorization');
+    if(!token) return '';    
+    const payload = jwt.verify(token, JWTSECRET) as PayloadInterface;    
+    const id = payload._id;
+    return id;
 }
 
 // validate token 
@@ -38,5 +52,7 @@ const tokenValidation = async (req: Request, res: Response, next: NextFunction) 
 
 export {
     getToken,
-    tokenValidation
+    tokenValidation,
+    validatePassword,
+    getUserIdByToken,
 }

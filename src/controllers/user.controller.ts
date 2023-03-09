@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 
-import { getToken } from '../utils/token.util';
+import { getToken, validatePassword } from '../utils/token.util';
 import { registerUser, getUserByEmail, getUsers, apiDeleteUser } from "../services/user.service";
 import { ResponseSuccess, ResponseError } from '../utils/response.util';
 import { QueryData } from '../types/user.type';
@@ -32,14 +32,17 @@ export const signIn = async ({ body }: Request, res: Response) => {
     try{
         const { email, password } = body;
         const user = await getUserByEmail(email);
-        if(!user) return res.status(400).json('Email or password is wrong');
-        const isValidPass: boolean = await user.validatePassword(password);
-        if(!isValidPass) return res.status(400).json('Invalid password');
-    
+        if(!user || user ===null){
+            return ResponseError(res, 400, 'Email or password is wrong.');
+        }
+        const isValidPass = await validatePassword(password, user.password);
+        if(!isValidPass || user===null){
+            return ResponseError(res, 400, 'Email or password is wrong.');
+        }
         const token = await getToken(user._id);
-        ResponseSuccess(res, 200, user, 'The user logged successfully.', token);
+        return ResponseSuccess(res, 200, user, 'The user logged successfully.', token);
     }catch(err){
-        ResponseError(res, 500, 'Internal server error.');
+        return ResponseError(res, 500, 'Internal server error.');
     }
 }
 

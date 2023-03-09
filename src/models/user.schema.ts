@@ -30,9 +30,9 @@ UserSchema.methods.encryptPassword = async (password: string): Promise<string> =
 }
 
 // Validando que la contraseña sea la correcta.
-UserSchema.methods.validatePassword = async function (password: string): Promise<boolean> {
-    return await bcrypt.compare(password, this.password);
-}
+// UserSchema.methods.validatePassword = function (password: string): Boolean {
+//     return bcrypt.compare(password, this.password);
+// }
 
 // Incluyendo el plugin de paginado al schema de usuario
 UserSchema.plugin(mongoosePaginate);
