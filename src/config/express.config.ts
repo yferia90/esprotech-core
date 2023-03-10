@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import express, { Application, Request, Response } from 'express';
 import cors from 'cors';
-import morgan from 'morgan';
+// import morgan from 'morgan';
 
 import routes from '../routes';
 import connectDataBase from '../db/mongo';
@@ -20,7 +20,7 @@ const app: Application = express();
  */
 app.use(cors());
 app.use(express.json());
-app.use(morgan('dev'));
+// app.use(morgan('dev'));
 // Validando que la base de datos esté funcionando.
 app.use('*', async(req: Request, res: Response, next) => {
     const dataBase = await connectDataBase();
