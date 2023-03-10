@@ -4,7 +4,6 @@ import SavingCalculatedModel from "../models/saving.calculated.schema";
 import { SavingInterface } from "../types/saving.type";
 import { SavingCalculatedInterface } from "../types/saving.calculated.type";
 import TYPE_OPERATION from '../utils/enum.operation';
-import { getUserIdByToken } from '../utils/token.util';
 
 /**
  * Calculated saving
@@ -56,12 +55,10 @@ const getSaving = async (limit: number, page: number) => {
  */
 const insertSaving = async (req: Request, body: SavingInterface, type_operation: string) => {
     try{
-        const user_id = getUserIdByToken(req);        
         const saving: SavingInterface = new SavingModel({
             monto: body.monto,
             type_operation: type_operation,
-            message: body.message,
-            user_id: user_id,
+            message: body.message
         });
         await SavingModel.create(saving);
         // Acutalizar el monto calculado del ahorro

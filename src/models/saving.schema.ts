@@ -15,14 +15,6 @@ const SavingSchema = new Schema(
         message: {
             type: String,
             required: false
-        },
-        user_id: {
-            type: String,
-            required: false
-        },
-        profile: {
-            type: String,
-            required: false
         }
     }, {
         timestamps: true
