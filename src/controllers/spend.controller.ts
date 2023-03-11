@@ -8,7 +8,7 @@ import TYPE_OPERATION from '../utils/enum.operation';
 export const list = async ({ query }: Request, res: Response) => {
     try{
         const { limit, page } = query as unknown as QueryData;
-        const queryLimit = parseInt(limit) || 10;
+        const queryLimit = parseInt(limit) || 500;
         const queryPage = parseInt(page) || 1;
         const listRecord = await getAll(queryLimit, queryPage);
         ResponseSuccess(res, 200, listRecord);
